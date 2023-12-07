@@ -1,0 +1,7 @@
+.list-group div {
+    list-style: none;
+    background-color: gray;
+    color: white;
+    margin: 5px 0;
+    text-align: center;
+}
