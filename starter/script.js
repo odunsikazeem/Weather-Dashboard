@@ -92,15 +92,6 @@ $("#search-button").on("click", function(event) {
         index++;
         console.log(index)
 
-
-
-
-
-
-                    // description.text(data.articles[i].description);
-                    // var number = $("<div class='articleNumber'>").text(articleNumber);
-                    // $(section).append(number, title, description);
-                    // $("#article-results").append(article);
         
         }
             }
