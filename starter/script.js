@@ -6,6 +6,7 @@ var tempEl = $(".temp span");
 var windEl = $(".wind span");
 var humidityEl = $(".humidity span");
 var citiesEl = $(".cities");
+var iconEl = $("#icon");
 
 $("#search-button").on("click", function(event) {
     event.preventDefault();
@@ -36,9 +37,12 @@ $("#search-button").on("click", function(event) {
       var humidity = data.list[0].main.humidity
       var cities = data.city.name
       var day = data.list[0].dt_txt
-      console.log(cloud,wind,temp,humidity,cities,day);
+      var icon = data.list[0].weather[0].icon
+      var iconUrl = "https://openweathermap.org/img/wn/" + icon + ".png";
+      console.log(cloud,wind,temp,humidity,cities,day,icon,iconUrl);
 
       tempEl.text((temp - 273.15).toFixed(2) + " °C");
+      iconEl.attr("src",iconUrl);
       windEl.text(wind  + " KPH");
       humidityEl.text(humidity  + " %");
       citiesEl.text(cities);
@@ -58,13 +62,16 @@ $("#search-button").on("click", function(event) {
       var wind = data.list[i].wind.speed
       var temp = data.list[i].main.temp
       var humidity = data.list[i].main.humidity
+      var icon = data.list[i].weather[0].icon
+      var iconUrl = "https://openweathermap.org/img/wn/" + icon + ".png";
       var day = data.list[i].dt_txt
+      console.log(iconUrl);
 
         var colElement = $("<div>");
         var cardElement = $("<div>");
         var cardBodyElement = $("<div>");
         var headerElement = $("<h5>");
-        var iconElement = $("i");
+        var iconElement = $("<img>");
         var windElement = $("<p>");
         var tempElement = $("<p>");
         var humidityElement = $("<p>");
@@ -78,9 +85,10 @@ $("#search-button").on("click", function(event) {
         humidityElement.addClass("card-text");
 
         headerElement.text(nextDay.getDate() + "/" + nextDay.getMonth() + "/" + nextDay.getFullYear());
-        windElement.text("Wind : " + wind);
-        tempElement.text( "Temp : " + temp);
-        humidityElement.text("Humidity:" + humidity);
+        windElement.text("Wind : " + wind + " KPH");
+        iconElement.attr("src",iconUrl);
+        tempElement.text( "Temp : " + (temp - 273.15).toFixed(2) + " °C");
+        humidityElement.text("Humidity:" + humidity + " %");
 
         cardBodyElement.append(headerElement,iconElement,windElement,tempElement,humidityElement)
         cardElement.append(cardBodyElement);
