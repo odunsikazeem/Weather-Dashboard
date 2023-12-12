@@ -1,3 +1,8 @@
+
+.bg-dark {
+    background-color: blue !important;
+}
+
 .list-group div {
     list-style: none;
     background-color: gray;
@@ -10,3 +15,31 @@
    background-color: rgb(22, 22, 85); 
    color: white;
 }
+
+.imgclass {
+    display: flex;
+    align-items: center !important;
+
+}
+
+/* #history.list-group {
+    background-color: gray;
+    list-style: none;
+    color: white;
+    margin: 5px 0;
+    text-align: center;
+} */
+
+#search-button {
+    background-color: rgb(77, 77, 221);
+    color: white;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.lag {
+    cursor: pointer;
+    max-width: 970px;
+    margin: 0 auto;
+}
+

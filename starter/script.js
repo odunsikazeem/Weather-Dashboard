@@ -10,7 +10,7 @@ var iconEl = $("#icon");
 
 $("#search-button").on("click", function(event) {
     event.preventDefault();
-  
+     
     var city = $(searchInputEl).val().trim();
     var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + ",&appid=31b8eceab3ceb4bbb4396db8c8a750f8";
     // var queryURL = "api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=31b8eceab3ceb4bbb4396db8c8a750f8";
@@ -28,9 +28,22 @@ $("#search-button").on("click", function(event) {
       cities.push(city)
       localStorage.setItem("cities", JSON.stringify(cities));
 
-      listgroupEl.prepend("<div>" + city + "</div>");
+      var cityList = $("<div>");
+      cityList.addClass("lag");
+      cityList.attr("citydata", city);
+      cityList.text(city)
+      listgroupEl.prepend(cityList);
+
+      $(".lag").on("click", function(event) {
+        event.preventDefault();
+      })
+    
+
+      // listgroupEl.prepend("<div>" + city + "</div>");
+
       $(searchInputEl).val("");
      // Day 1 information 
+     var presentDate = dayjs().format("DD/MM/YYYY");
       var cloud = data.list[0].clouds.all
       var wind = data.list[0].wind.speed
       var temp = data.list[0].main.temp
@@ -39,13 +52,13 @@ $("#search-button").on("click", function(event) {
       var day = data.list[0].dt_txt
       var icon = data.list[0].weather[0].icon
       var iconUrl = "https://openweathermap.org/img/wn/" + icon + ".png";
-      console.log(cloud,wind,temp,humidity,cities,day,icon,iconUrl);
+      console.log(cloud,wind,temp,humidity,cities,day,icon,iconUrl,presentDate);
 
       tempEl.text((temp - 273.15).toFixed(2) + " °C");
       iconEl.attr("src",iconUrl);
       windEl.text(wind  + " KPH");
       humidityEl.text(humidity  + " %");
-      citiesEl.text(cities);
+      citiesEl.text(cities +  " (" + presentDate + ")");
     
       $("#forecast .row").empty();
       var currentDate = new Date(day);
@@ -90,7 +103,7 @@ $("#search-button").on("click", function(event) {
         tempElement.text( "Temp : " + (temp - 273.15).toFixed(2) + " °C");
         humidityElement.text("Humidity:" + humidity + " %");
 
-        cardBodyElement.append(headerElement,iconElement,windElement,tempElement,humidityElement)
+        cardBodyElement.append(headerElement,iconElement,tempElement,windElement,humidityElement)
         cardElement.append(cardBodyElement);
         colElement.append(cardElement);
         $("#forecast .row").append(colElement);
@@ -116,6 +129,9 @@ $("#search-button").on("click", function(event) {
         // console.log(cities);
         $("#history").on("click", function(event) {
           event.preventDefault();});
-        
+
+
+         
+
 
      
