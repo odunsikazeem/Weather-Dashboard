@@ -3,13 +3,13 @@
     background-color: blue !important;
 }
 
-.list-group div {
+/* .list-group {
     list-style: none;
     background-color: gray;
     color: white;
     margin: 5px 0;
     text-align: center;
-}
+} */
 
 .col div {
    background-color: rgb(22, 22, 85); 
@@ -20,6 +20,10 @@
     display: flex;
     align-items: center !important;
 
+}
+
+.btn.btn-secondary.btn-lg.btn-block {
+    margin: 10px;
 }
 
 /* #history.list-group {
@@ -37,9 +41,13 @@
     margin-top: 10px;
 }
 
-.lag {
+/* #search-button.btn.search-button {
+    
+} */
+
+/* .lag {
     cursor: pointer;
     max-width: 970px;
     margin: 0 auto;
-}
+} */
 
