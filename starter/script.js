@@ -90,7 +90,7 @@ function fetchData(city) {
       tempElement.addClass("card-text");
       humidityElement.addClass("card-text");
 
-      headerElement.text(nextDay.getDate() + "/" + (nextDay.getMonth()+1) + "/" + nextDay.getFullYear());
+      headerElement.text((nextDay.getDate()+1) + "/" + (nextDay.getMonth()+1) + "/" + nextDay.getFullYear());
       windElement.text("Wind : " + wind + " KPH");
       iconElement.attr("src",iconUrl);
       tempElement.text( "Temp : " + (temp - 273.15).toFixed(2) + " °C");
