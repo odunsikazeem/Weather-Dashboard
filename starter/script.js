@@ -10,7 +10,8 @@ var iconEl = $("#icon");
 var cityListEl = $(".btn-secondary");
 
 
-function fetchData(city) {
+function fetchData(city,prepend = "") {
+  city = city[0].toUpperCase() + city.slice(1);
   var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + ",&appid=31b8eceab3ceb4bbb4396db8c8a750f8";
   // var queryURL = "api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=31b8eceab3ceb4bbb4396db8c8a750f8";
   fetch(queryURL)
@@ -18,26 +19,34 @@ function fetchData(city) {
     return response.json();
    }).then(function (data) {
    
-    var cities = [];
-    if (localStorage.getItem("cities")) {
-      cities = JSON.parse(localStorage.getItem("cities"));
-    }
-    cities.push(city)
-    localStorage.setItem("cities", JSON.stringify(cities));
+   
+    if (!prepend){
+      var cities = [];
+      if (localStorage.getItem("cities")) {
+        cities = JSON.parse(localStorage.getItem("cities"));
+      }
+      if (cities.includes(city)){
+           var newCities = cities.filter((item)=>item !== city);
+           cities = newCities;   
+      } 
+      console.log(cities);
+      cities.push(city)
+      localStorage.setItem("cities", JSON.stringify(cities));
+      console.log(cities);
+      
+      listgroupEl.empty();
+      for ( i = 0; i < cities.length; i++) {
+        var cityList = $('<button type="button" class="btn btn-secondary btn-lg btn-block"></button>');
+        cityList.text(cities[i]);
+        listgroupEl.prepend(cityList);
+      }  
+  }
 
-    var cityList = $('<button type="button" class="btn btn-secondary btn-lg btn-block"></button>');
-    
-    cityList.attr("citydata", city);
-    cityList.text(city)
-    listgroupEl.prepend(cityList);
-
-  
     // listgroupEl.prepend("<div>" + city + "</div>");
 
     $(searchInputEl).val("");
    // Day 1 information 
    var presentDate = dayjs().format("DD/MM/YYYY");
-    var cloud = data.list[0].clouds.all
     var wind = data.list[0].wind.speed
     var temp = data.list[0].main.temp
     var humidity = data.list[0].main.humidity
@@ -64,7 +73,6 @@ function fetchData(city) {
         currentDate.setDate(currentDate.getDate() + 1)
         console.log(nextDay,nextDay.getUTCMonth(),data)
 
-    var cloud = data.list[i].clouds.all
     var wind = data.list[i].wind.speed
     var temp = data.list[i].main.temp
     var humidity = data.list[i].main.humidity
@@ -106,7 +114,6 @@ function fetchData(city) {
       index++;
       // console.log(index)
 
-      
       }
           }
     })
@@ -119,20 +126,29 @@ $("#search-button").on("click", function(event) {
     if (!city) {
       return;
     }
-    fetchData(city);
+    fetchData(city, "");
   });
 
-  
+  // function CityInList(city) {
+  //   var cities = localStorage.getItem("cities") ? JSON.parse(localStorage.getItem("cities")) : [];
+  //    cities.includes(city);
+  // }
 
+  
     function addTask(text){
       // console.log(listgroupEl);
       if (text) {
-        listgroupEl.append('<button type="button" class="btn btn-secondary btn-lg btn-block">' + text + '</button>');
-        $("#history button:last-child").on("click", function(event) {
-          // event.preventDefault();
+        listgroupEl.prepend('<button type="button" class="btn btn-secondary btn-lg btn-block">' + text + '</button>');
+        $("#history button:first-child").on("click",function(event) {
+          event.preventDefault();
           var city = $(this).text();
+        // if (!CityInList(city)) {
+        //     addTask(city);
+        //     fetchData(city);
+        //   }
+        
           console.log(city);
-          fetchData(city);
+          fetchData(city, "noprepend");
         })
       }   
     }
