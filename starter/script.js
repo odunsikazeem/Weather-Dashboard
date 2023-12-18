@@ -42,8 +42,6 @@ function fetchData(city,prepend = "") {
       }  
   }
 
-    // listgroupEl.prepend("<div>" + city + "</div>");
-
     $(searchInputEl).val("");
    // Day 1 information 
    var presentDate = dayjs().format("DD/MM/YYYY");
@@ -129,10 +127,6 @@ $("#search-button").on("click", function(event) {
     fetchData(city, "");
   });
 
-  // function CityInList(city) {
-  //   var cities = localStorage.getItem("cities") ? JSON.parse(localStorage.getItem("cities")) : [];
-  //    cities.includes(city);
-  // }
 
   
     function addTask(text){
@@ -142,10 +136,7 @@ $("#search-button").on("click", function(event) {
         $("#history button:first-child").on("click",function(event) {
           event.preventDefault();
           var city = $(this).text();
-        // if (!CityInList(city)) {
-        //     addTask(city);
-        //     fetchData(city);
-        //   }
+       
         
           console.log(city);
           fetchData(city, "noprepend");
@@ -154,11 +145,7 @@ $("#search-button").on("click", function(event) {
     }
     var cities = localStorage.getItem("cities") ? JSON.parse(localStorage.getItem("cities")) : [];
         cities.forEach(addTask);
-        // console.log(cities);
-        // $("#history").on("click", function(event) {
-        //   event.preventDefault();
-        // });
-
+      
 
          
 
