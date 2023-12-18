@@ -8,7 +8,7 @@ N/A
 ## Usage
 
 This is a browser application with a search input area to capture the city typed by the user. The click of the search button will fetch the data from openweathermap URL and return the current day weather information and 5 day eather forecast. 
- https:
+ https:https://odunsikazeem.github.io/Weather-Dashboard/
  <img src="./assets/Screenshot.png" alt=Landing-Page/>
 
 
